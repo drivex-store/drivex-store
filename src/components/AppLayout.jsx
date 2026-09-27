@@ -33,33 +33,33 @@ export default async function AppLayout({ children }) {
       <SyncBodyTheme />
       <Preloader />
 
-      <ModalOverlay>
-        <PreloaderScrollLock />
-        <PageTransitionScrollLock />
+      <PreloaderScrollLock />
+      <PageTransitionScrollLock />
 
-        <LazyAnalytics>
-          <LazyCustomCursor>
-            <FooterSlot>
-              <FooterClient {...footerData} spotsRemaining={null} />
-            </FooterSlot>
+      <LazyAnalytics>
+        <LazyCustomCursor>
+          <FooterSlot>
+            <FooterClient {...footerData} spotsRemaining={null} />
+          </FooterSlot>
 
-            <TabTitleMessage />
-            <Credits />
+          <TabTitleMessage />
+          <Credits />
 
-            <HeaderClient
-              navItems={headerData?.navItems}
-              headerCta={headerData?.headerCta}
-              flyout={headerData?.flyout}
-              spotsRemaining={null}
-            />
+          <HeaderClient
+            navItems={headerData?.navItems}
+            headerCta={headerData?.headerCta}
+            flyout={headerData?.flyout}
+            spotsRemaining={null}
+          />
 
-            <main className="relative z-[1]">
-              {children}
-            </main>
+          <main className="relative z-[1]">
+            {children}
+          </main>
 
-          </LazyCustomCursor>
-        </LazyAnalytics>
-      </ModalOverlay>
+        </LazyCustomCursor>
+      </LazyAnalytics>
+      
+      <ModalOverlay />
     </>
   );
 }
