@@ -2,7 +2,7 @@
 import { useRef } from 'react'
 import { Slot } from '@radix-ui/react-slot'
 import { Slottable } from '@/components/ui/Slottable'
-import { useDualLayerScramble } from '@/hooks/useDualLayerScramble'
+import useDualLayerScramble from '@/hooks/useDualLayerScramble'
 import { cva, cx } from '@/libs/utils/className'
 
 const buttonVariants = cva({

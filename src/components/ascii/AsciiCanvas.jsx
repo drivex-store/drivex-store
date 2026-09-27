@@ -1,7 +1,7 @@
 'use client'
 import { useRef, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber"; 
-import { cx } from "@/libs/utils/classnames"; 
+import { cx } from "@/libs/utils/className"; 
 import { useIsTouchDevice } from "@/hooks/useBreakpoint"; 
 import { HoverImage } from "@/components/ascii/HoverImage";
 import { AsciiEffectPass } from "@/components/ascii/AsciiEffectPass";

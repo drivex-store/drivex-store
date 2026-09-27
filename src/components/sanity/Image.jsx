@@ -1,4 +1,4 @@
-import { createImageUrlBuilder } from 'next-sanity'
+import { createImageUrlBuilder } from '@sanity/image-url'
 import { preload } from 'react-dom'
 import { env } from '@/env'
 import { parseResponsiveValues } from '@/components/sanity/utils/parseResponsiveValues'

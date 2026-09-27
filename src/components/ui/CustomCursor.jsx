@@ -2,7 +2,7 @@
 import { gsap, useGSAP } from '@/libs/vendor';
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { createPortal } from 'react-dom'
-import { usePageTransitionContext } from '@/contexts/PageTransitionContext'
+import { usePageTransitionContext } from '@/providers/PageTransitionProvider'
 import { cx } from '@/libs/utils/className'
 
 export default function CustomCursor({

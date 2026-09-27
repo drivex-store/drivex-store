@@ -3,7 +3,7 @@
 import React, { createContext, useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion' 
 import { animate } from 'framer-motion' 
-import { easingDefinitionToFunction } from '@/libs/constants/easing' 
+import { easingDefinitionToFunction } from '@/libs/constants/easings' 
 import { cx } from '@/libs/utils/className'
 
 export function stagger(

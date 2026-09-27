@@ -1,9 +1,9 @@
 'use client'
 import { useRef, useState, useEffect, useCallback } from "react";
-import { cx } from "@/libs/utils/classnames"; // NOTE
+import { cx } from "@/libs/utils/className";
 import { ASCII_ANIMATION_DURATION } from "@/libs/constants/config";
 import { AsciiCanvas } from "@/components/ascii/AsciiCanvas";
-import { computeContentBounds, cubicEaseOut } from "@/components/ascii/utils.js";
+import { computeContentBounds, cubicEaseOut } from "@/components/ascii/utils/utils.js";
 
 const DURATION_MS = 1000 * ASCII_ANIMATION_DURATION; // fD
 

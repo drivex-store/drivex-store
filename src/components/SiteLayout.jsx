@@ -1,4 +1,4 @@
-import { GridOverlay } from '@/components/layout/GridOverlay'
+import { GridOverlay } from '@/components/layout/utils/GridOverlay'
 import { PageTransitionOverlay } from '@/pageTransition/PageTransitionOverlay'
 import { LazyPageTransitionRectangles } from '@/pageTransition/LazyPageTransitionRectangles'
 import { SyncBodyTheme } from '@/components/shared/SyncBodyTheme'

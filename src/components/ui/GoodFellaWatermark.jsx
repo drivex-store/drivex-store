@@ -3,7 +3,7 @@
 // NOTE: org-module id: 843476 — react/jsx-runtime, no import needed (JSX syntax)
 // NOTE: org-module id: 500932 — react/compiler-runtime, no import needed (compiler cache removed)
 // NOTE: org-module id: 801335
-import { cx } from '@/lib/utils'
+import { cx } from '@/libs/utils/className'
 
 export function GoodFellaWatermark({ className, animate = false }) {
   const paths = [

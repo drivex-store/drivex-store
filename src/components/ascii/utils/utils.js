@@ -1,5 +1,5 @@
-import { defaultChars } from "@/libs/constants/config";
-export const DEFAULT_CHARS = defaultChars;
+import { DEFAULT_CHARS as CONFIG_DEFAULT_CHARS } from "@/libs/constants/config";
+export const DEFAULT_CHARS = CONFIG_DEFAULT_CHARS;
 export function proxyImageUrl(url) {
   return url.startsWith("https://cdn.sanity.io/")
     ? `/api/image-proxy?url=${encodeURIComponent(url)}`

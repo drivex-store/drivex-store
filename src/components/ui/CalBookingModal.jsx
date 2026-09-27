@@ -1,6 +1,6 @@
 'use client'
 import { useRef, useState, useEffect } from 'react'
-import { trackLinkedInConversion, LI_CONVERSION_CALL_BOOKED } from '@/lib/tracking'
+import { trackLinkedInConversion, LI_CONVERSION_CALL_BOOKED } from '@/libs/analytics/linkedinTracking'
 
 function embedGlobalInit(defaultEmbedUrl = 'https://app.cal.com/embed/embed.js') {
   let win = window

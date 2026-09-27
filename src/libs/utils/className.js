@@ -1,6 +1,5 @@
 import { extendTailwindMerge } from "tailwind-merge";
 import {
-  compose as createCompose,
   cva as createCva,
   cx as createCx,
 } from "class-variance-authority";
@@ -75,4 +74,3 @@ const withTailwindMerge = {
 
 export const cva = createCva(withTailwindMerge);
 export const cx = createCx(withTailwindMerge);
-export const compose = createCompose(withTailwindMerge);

@@ -2,7 +2,7 @@
 
 import { forwardRef, useRef, useActionState, useState, startTransition, useEffect } from 'react'
 import { AnimatedButton } from '@/components/animations/AnimatedButton'
-import { cva, cx } from '@/lib/utils'
+import { cva, cx } from '@/libs/utils/className'
 import { FormHoneypot } from '@/components/ui/FormHoneypot'
 import { useSpamPrevention } from '@/hooks/useSpamPrevention'
 import { subscribeToNewsletter } from '@/libs/actions/subscribeToNewsletter'

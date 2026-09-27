@@ -1,6 +1,6 @@
 import React from "react";
-import { SanityLink } from "../SanityLink";
-import { ScrambleText } from "../ScrambleText";
+import { SanityLink } from "../sanity/SanityLink";
+import { ScrambleText } from "../animations/ScrambleText";
 
 export function FooterNavigation({ items }) {
   if (!items || items.length === 0) return null;

@@ -1,13 +1,10 @@
 import { revalidateTag } from "next/cache";
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { parseBody } from "next-sanity/webhook";
 
-export async function POST(req: NextRequest) {
+export async function POST(req) {
   try {
-    const { isValidSignature, body } = await parseBody<{
-      _type: string;
-      slug?: { current?: string };
-    }>(req, process.env.SANITY_REVALIDATE_SECRET);
+    const { isValidSignature, body } = await parseBody(req, process.env.SANITY_REVALIDATE_SECRET);
 
     if (!isValidSignature) {
       return new NextResponse("Invalid Signature", { status: 401 });
@@ -25,7 +22,7 @@ export async function POST(req: NextRequest) {
       now: Date.now(),
       body,
     });
-  } catch (err: unknown) {
+  } catch (err) {
     console.error(err);
     return new NextResponse("Error revalidating", { status: 500 });
   }

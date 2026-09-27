@@ -12,6 +12,7 @@
     "paths": {
       "@/pageTransition": ["./src/components/pageTransition"],
       "@/pageTransition/*": ["./src/components/pageTransition/*"],
+      "@/env": ["./env.mjs"],
       "@/*": ["./src/*"]
     }
   },

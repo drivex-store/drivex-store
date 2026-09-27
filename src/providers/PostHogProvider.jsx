@@ -3,7 +3,7 @@
 import '@/libs/analytics/linkedinTracking'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useEffect, Suspense, Fragment } from 'react'
-import { captureEvent, setupIdleInit } from './posthog-client'
+import { captureEvent, setupIdleInit } from '@/libs/analytics/posthog-client'
 
 export function PostHogProvider({ children }) {
   useEffect(setupIdleInit, [])

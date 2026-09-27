@@ -25,8 +25,7 @@ export default function NotFoundPage(props = {}) {
     description = "Looks like this page was moved or the link is broken.",
     imageSrc = "/images/The_Great_Wave_off_Kanagawa_edited.png",
     mobileImageSrc,
-    depthMapSrc = "/images
-/The_Great_Wave_off_Kanagawa_edited_depth.png",
+    depthMapSrc = "/images/The_Great_Wave_off_Kanagawa_edited_depth.png",
     color = "#ff6b4a",
     colorDark = "#1a0a2e",
     cellSize = 10,
