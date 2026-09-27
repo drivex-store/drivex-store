@@ -5,5 +5,5 @@ export const screens = {
   xl: '80rem',
   '2xl': '96rem'
 };
-const theme = screens;
+const theme = { screens };
 export default theme;
