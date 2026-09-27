@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "preserve",
+    "allowJs": true,
+    "checkJs": false,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@/pageTransition": ["./src/components/pageTransition"],
+      "@/pageTransition/*": ["./src/components/pageTransition/*"],
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "sanity.config.js",
+    "next.config.mjs",
+    "env.mjs"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next",
+    "__MACOSX",
+    "public"
+  ]
+}
