@@ -19,8 +19,7 @@ import { FooterClient } from '@/components/layout/FooterClient'
 import { sanityFetch } from '@/libs/sanity/fetch'
 import { HEADER_QUERY, FOOTER_QUERY } from '@/libs/sanity/queries'
 
-export default async function SiteLayout({ children }) {
-
+export default async function AppLayout({ children }) {
   const [headerData, footerData] = await Promise.all([
     sanityFetch({ query: HEADER_QUERY, tags: ['navigation'] }),
     sanityFetch({ query: FOOTER_QUERY, tags: ['footer', 'navigation'] }),

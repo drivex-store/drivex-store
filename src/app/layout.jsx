@@ -1,6 +1,6 @@
 import AppProviders from '@/app/providers';
 import './main.css';
-import SiteLayout from '@/components/SiteLayout';
+import AppLayout from '@/components/AppLayout';
 import Script from 'next/script';
 import localFont from 'next/font/local';
 
@@ -103,9 +103,9 @@ export default function RootLayout({ children }) {
       </head>
       <body data-transition-phase="idle">
         <AppProviders>
-          <SiteLayout>
+          <AppLayout>
             {children}
-          </SiteLayout>
+          </AppLayout>
         </AppProviders>
         
         <Script
