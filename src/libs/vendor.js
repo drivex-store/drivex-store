@@ -5,16 +5,9 @@ import { SplitText } from 'gsap/SplitText';
 import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
 
 gsap.registerPlugin(
-    ScrollTrigger, 
-    useGSAP,        
+    ScrollTrigger,
+    useGSAP,
     ScrambleTextPlugin, 
     SplitText
  );
-
-export { 
-    gsap, 
-    useGSAP,        
-    ScrollTrigger, 
-    SplitText, 
-    ScrambleTextPlugin, 
- };
+export{gsap,useGSAP,ScrollTrigger,SplitText,ScrambleTextPlugin};
