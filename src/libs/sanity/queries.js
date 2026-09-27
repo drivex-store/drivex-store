@@ -1,15 +1,43 @@
+
+const LINK_PROJECTION = `{
+  "type": type,
+  "href": select(
+    type == "internal" => "/" + coalesce(internal.link->uri.current, internal.link->slug.current, ""),
+    type == "external" => external,
+    type == "email" => "mailto:" + email,
+    type == "modal" => "#"
+  ),
+  "modalId": modalId->_id,
+  openInNewTab,
+  canDownload
+}`
+
 export const HEADER_QUERY = `
   *[_type == "navigation" && navId.current == "nav"][0]{
     "navItems": items[]{
       _key,
       text,
-      navigationItemUrl
+      "link": navigationItemUrl${LINK_PROJECTION}
     },
-    "headerCta": headerCta,
+    "headerCta": headerCta{
+      "text": customText,
+      ...${LINK_PROJECTION}
+    },
     "flyout": {
       "availability": flyoutAvailability,
-      "centerImage": flyoutCenterImage,
-      "featuredProject": flyoutFeaturedProject,
+      "centerImage": flyoutCenterImage{
+        image,
+        caption,
+        "link": link${LINK_PROJECTION}
+      },
+      "featuredProject": flyoutFeaturedProject{
+        caption,
+        "project": project->{
+          _id,
+          title,
+          "uri": uri.current
+        }
+      },
       "contact": flyoutContact,
       "team": flyoutTeam,
       "socials": flyoutSocials,
@@ -25,7 +53,7 @@ export const FOOTER_QUERY = `
       "navItems": items[]{
         _key,
         text,
-        navigationItemUrl
+        "link": navigationItemUrl${LINK_PROJECTION}
       },
       flyoutAvailability,
       flyoutContact,

@@ -7,7 +7,6 @@ import { NewsletterForm } from '@/components/ui/NewsletterForm'
 import { SanityRichText } from '@/components/sanity/SanityRichText'
 import { SanityImage,getImageSrc } from '@/components/sanity/SanityImage'
 import { GoodFellaWatermark } from '@/components/ui/GoodFellaWatermark'
-
 import { clamp, sineEase } from '@/components/layout/utils/mathUtils'
 import { AsciiWrapper } from '@/components/layout/AsciiWrapper'
 import { FooterNavigation } from '@/components/layout/FooterNavigation'

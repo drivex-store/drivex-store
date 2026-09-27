@@ -4,7 +4,6 @@ import { AnimatePresence } from 'framer-motion'
 import { motion } from 'framer-motion'
 import { createPortal } from 'react-dom'
 import { easings } from '@/libs/constants/easings'
-
 import { AnimatedButton } from '@/components/animations/AnimatedButton'
 
 import { 
@@ -12,7 +11,6 @@ import {
   trackBookingFlowStarted,
   trackCalBookingOpened 
 } from '@/libs/analytics/events'
-
 import { FormHoneypot } from '@/components/ui/FormHoneypot'
 import { useSpamPrevention } from '@/hooks/useSpamPrevention'
 import { trackLinkedInConversion, LI_CONVERSION_CTA_CLICK } from '@/libs/analytics/linkedinTracking'

@@ -107,13 +107,13 @@ function PlusIcon({ className }) {
 }
 
 export function SanityLink(props) {
-  const { link, children, animated, size = 'default', theme = 'light', ...rest } = props
+  const { link = {}, children, animated, size = 'default', theme = 'light', ...rest } = props
   const { isOpen, modalId, openModal } = useModal()
 
-  const content = children ?? link.text
-  const isModalMatch = isOpen && modalId === link.modalId
+  const content = children ?? link?.text
+  const isModalMatch = isOpen && modalId === link?.modalId
 
-  if (link.type === 'modal' && link.modalId) {
+  if (link?.type === 'modal' && link.modalId) {
     if (animated) {
       const handleClick = () => openModal(link.modalId)
       const computedClass = cx(
