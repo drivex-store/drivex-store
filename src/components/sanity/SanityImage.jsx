@@ -50,7 +50,7 @@ function getCropDimensions(dimensions, options = {}) {
 }
 
 function calculateAspectRatio(image, options = {}) {
-  if (!image.dimensions) throw new Error('Dimensions are missing')
+  if (!image?.dimensions) return undefined
   const { width, height } = getCropDimensions(image.dimensions, options)
   return width && height ? width / height : undefined
 }
@@ -106,6 +106,22 @@ export function getImageDimensions(image, options = {}) {
   return applyMaxLimits(baseDimensions, { maxWidth, maxHeight })
 }
 
+function buildUrlFromString(url, builderOpts = {}) {
+  try {
+    const u = new URL(url)
+    const { width, height, fit, dpr, quality, auto } = builderOpts
+    if (width) u.searchParams.set('w', width)
+    if (height) u.searchParams.set('h', height)
+    if (fit) u.searchParams.set('fit', fit)
+    if (dpr && dpr !== 1) u.searchParams.set('dpr', dpr)
+    if (quality) u.searchParams.set('q', quality)
+    if (auto) u.searchParams.set('auto', auto)
+    return u.toString()
+  } catch {
+    return url
+  }
+}
+
 export function getImageSrc(image, options = {}) {
   const { width, height, aspectRatio, ...rest } = options
 
@@ -119,6 +135,11 @@ export function getImageSrc(image, options = {}) {
   const dims = getImageDimensions(image, { width, height, aspectRatio })
 
   const buildUrl = (img, builderOpts = {}) => {
+    // The source is already a plain image URL (not a Sanity asset reference),
+    // so resize it via query params instead of the asset builder.
+    if (typeof img === 'string') {
+      return buildUrlFromString(img, { ...defaultBuilderOptions, ...builderOpts })
+    }
     const builderImage = { ...img, _id: img._id ?? undefined }
     return imageBuilder.withOptions({ ...defaultBuilderOptions, ...builderOpts }).image(builderImage).url()
   }
@@ -235,7 +256,11 @@ export function SanityImage(props) {
     onLoad?.(e)
   }, [visibility.onLoad, onLoad])
 
-  if (!image?._id) return null
+  const hasImage = typeof image === 'string'
+    ? image.length > 0
+    : !!(image?._id || image?.asset)
+
+  if (!hasImage) return null
 
   const responsiveSources = run(() => {
     if (aspectRatio) {
