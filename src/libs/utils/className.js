@@ -1,8 +1,5 @@
 import { extendTailwindMerge } from "tailwind-merge";
-import {
-  cva as createCva,
-  cx as createCx,
-} from "class-variance-authority";
+import { cx as clsx } from "class-variance-authority";
 
 const TEXT_TOKENS = [
   "display",
@@ -66,11 +63,36 @@ const twMerge = extendTailwindMerge({
   },
 });
 
-const withTailwindMerge = {
-  hooks: {
-    onComplete: twMerge,
-  },
-};
+export function cx(...inputs) {
+  return twMerge(clsx(...inputs));
+}
 
-export const cva = createCva(withTailwindMerge);
-export const cx = createCx(withTailwindMerge);
+export function cva(config = {}) {
+  const { base = [], variants = {}, compoundVariants = [], defaultVariants = {} } = config;
+
+  return (props = {}) => {
+    const { className, ...variantProps } = props ?? {};
+    const classes = [base];
+
+    for (const variantName of Object.keys(variants)) {
+      const variantOptions = variants[variantName];
+      const selected = variantProps[variantName] ?? defaultVariants[variantName];
+      if (selected != null && variantOptions[selected] != null) {
+        classes.push(variantOptions[selected]);
+      }
+    }
+
+    for (const compound of compoundVariants) {
+      const { class: compoundClass, className: compoundClassName, ...conditions } = compound;
+      const matches = Object.entries(conditions).every(([key, value]) => {
+        const actual = variantProps[key] ?? defaultVariants[key];
+        return Array.isArray(value) ? value.includes(actual) : actual === value;
+      });
+      if (matches) classes.push(compoundClass ?? compoundClassName);
+    }
+
+    classes.push(className);
+
+    return cx(...classes);
+  };
+}
