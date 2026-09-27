@@ -463,14 +463,14 @@ export function ModalOverlay() {
     </div>
   )
 
+  if (!isMounted) return null
+
   const portalNode = createPortal(
     <AnimatePresence>
       {modalContent}
     </AnimatePresence>,
     document.body
   )
-
-  if (!isMounted) return null
 
   return (
     <Fragment>
