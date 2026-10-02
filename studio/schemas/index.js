@@ -10,6 +10,7 @@ import navigation from './documents/navigation'
 import notFound from './documents/notFound'
 import page from './documents/page'
 import project from './documents/project'
+import site from './documents/site'
 import promotionalPopup from './documents/promotionalPopup'
 import projectTag from './documents/projectTag' 
 import landingPage from './documents/landingPage' 
@@ -58,6 +59,7 @@ export const schemaTypes = [
   notFound,
   page,
   project,
+  site,
   promotionalPopup,
   projectTag,
   landingPage,
