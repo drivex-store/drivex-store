@@ -1,12 +1,30 @@
 import { notFound } from 'next/navigation'
-import { client } from '@/libs/sanity/client'
+import { sanityFetch } from '@/libs/sanity/live'
 import { homepageQuery } from '@/libs/sanity/queries/homepage'
 import { SectionRenderer } from '@/sections/SectionRenderer'
 
-const HOME_ID = 'homepage-heroSection'
+export async function generateMetadata() {
+  const { data: page } = await sanityFetch({
+    query: homepageQuery,
+    params: { id: 'homepage' },
+    stega: false,
+  })
+  
+  const seo = page?.seoMetadata
+
+  return {
+    title: seo?.title || page?.title,
+    description: seo?.description,
+    robots: seo?.noIndex ? { index: false, follow: false } : undefined,
+  }
+}
 
 export default async function HomePage() {
-  const page = await client.fetch(homepageQuery, { id: HOME_ID })
+  const { data: page } = await sanityFetch({
+    query: homepageQuery,
+    params: { id: 'homepage' },
+  })
+  
   if (!page) notFound()
 
   return <SectionRenderer sections={page.pageBuilder?.sectionsArray} />
