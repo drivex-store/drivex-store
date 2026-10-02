@@ -1,4 +1,3 @@
-
 const LINK_PROJECTION = `{
   "type": type,
   "href": select(
@@ -12,13 +11,34 @@ const LINK_PROJECTION = `{
   canDownload
 }`
 
+// Menu items: shared by the header and the footer.
+const NAV_ITEMS_PROJECTION = `{
+  _key,
+  text,
+  "link": navigationItemUrl${LINK_PROJECTION}
+}`
+
+// Socials: the Studio stores `platform` + `url`, but the UI reads `name` + `href`.
+const SOCIALS_PROJECTION = `{
+  _key,
+  "name": platform,
+  handle,
+  "href": url
+}`
+
+// Portable Text: resolve `linkField` annotations so SanityLink gets a real `href`.
+// Without this, markDefs only contain the raw reference ({ internal.link._ref }).
+const RICH_TEXT_PROJECTION = `{
+  ...,
+  markDefs[]{
+    ...,
+    _type == "linkField" => ${LINK_PROJECTION}
+  }
+}`
+
 export const HEADER_QUERY = `
   *[_type == "navigation" && navId.current == "nav"][0]{
-    "navItems": items[]{
-      _key,
-      text,
-      "link": navigationItemUrl${LINK_PROJECTION}
-    },
+    "navItems": items[]${NAV_ITEMS_PROJECTION},
     "headerCta": headerCta{
       "text": customText,
       ...${LINK_PROJECTION}
@@ -40,30 +60,28 @@ export const HEADER_QUERY = `
       },
       "contact": flyoutContact,
       "team": flyoutTeam,
-      "socials": flyoutSocials,
+      "socials": flyoutSocials[]${SOCIALS_PROJECTION},
       "location": flyoutLocation
     }
   }
 `
 
+// FooterClient reads: navigation.items, navigation.availability,
+// contactInformation, copyrightNotice, showWatermark and the ascii* fields.
 export const FOOTER_QUERY = `
   *[_type == "footer"][0]{
     title,
     "navigation": navigation->{
-      "navItems": items[]{
-        _key,
-        text,
-        "link": navigationItemUrl${LINK_PROJECTION}
-      },
-      flyoutAvailability,
-      flyoutContact,
-      flyoutTeam,
-      flyoutSocials,
-      flyoutLocation
+      "items": items[]${NAV_ITEMS_PROJECTION},
+      "availability": flyoutAvailability,
+      "contact": flyoutContact,
+      "team": flyoutTeam,
+      "socials": flyoutSocials[]${SOCIALS_PROJECTION},
+      "location": flyoutLocation
     },
-    leftText,
-    contactInformation,
-    copyrightNotice,
+    "leftText": leftText[]${RICH_TEXT_PROJECTION},
+    "contactInformation": contactInformation[]${RICH_TEXT_PROJECTION},
+    "copyrightNotice": copyrightNotice[]${RICH_TEXT_PROJECTION},
     showWatermark,
 
     "asciiImage": asciiImage.asset->url,
