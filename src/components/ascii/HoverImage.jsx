@@ -1,6 +1,5 @@
 import { ImagePlane } from "@/components/ascii/ImagePlane";
 
-// fT
 export function HoverImage({
   imageSrc,
   onLoad,

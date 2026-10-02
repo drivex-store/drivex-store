@@ -5,7 +5,7 @@ import { ASCII_ANIMATION_DURATION } from "@/libs/constants/config";
 import { AsciiCanvas } from "@/components/ascii/AsciiCanvas";
 import { computeContentBounds, cubicEaseOut } from "@/components/ascii/utils/utils.js";
 
-const DURATION_MS = 1000 * ASCII_ANIMATION_DURATION; // fD
+const DURATION_MS = 1000 * ASCII_ANIMATION_DURATION;
 
 export function AsciiTypewriter({
   imageSrc,
@@ -67,13 +67,13 @@ export function AsciiTypewriter({
   const containerRef = useRef(null);
   const isInViewRef = useRef(false);
 
-  // Content bounds
+  
   useEffect(() => {
     if (skipContentBounds) return;
     computeContentBounds(imageSrc, revealOrigin).then(setContentBounds);
   }, [imageSrc, revealOrigin.x, revealOrigin.y, revealOrigin, skipContentBounds]);
 
-  // Reduced motion
+  
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReducedMotion(mq.matches);
@@ -84,7 +84,7 @@ export function AsciiTypewriter({
 
   const useExternal = disableInternalAnimation && externalProgress !== undefined;
 
-  // Main typewriter animation
+  
   useEffect(() => {
     if (disableInternalAnimation) {
       animationDoneRef.current = true;
@@ -131,12 +131,12 @@ export function AsciiTypewriter({
     };
   }, [delay, duration, colorDelay, linear, reducedMotion, onComplete, disableInternalAnimation]);
 
-  // Click / keyboard colour-sweep helpers
+  
   const triggerColourSweep = useRef(() => {});
   triggerColourSweep.current = (point, delayMs = 0) => {
     if (!animationDoneRef.current || clickAnimFrameRef.current !== null) return;
-    const invert = !clickRadialInvert; // toggle
-    // original used ea.current for invert state
+    const invert = !clickRadialInvert; 
+    
     const startInvert = !clickRadialInvert;
     lastClickTimeRef.current = performance.now();
     setClickPoint(point);
@@ -193,7 +193,7 @@ export function AsciiTypewriter({
     impactAnimFrameRef.current = requestAnimationFrame(tick);
   };
 
-  // Keyboard “c” shortcut
+  
   useEffect(() => {
     const onKey = (e) => {
       if (
@@ -222,7 +222,7 @@ export function AsciiTypewriter({
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  // Cleanup rafs
+  
   useEffect(
     () => () => {
       if (clickAnimFrameRef.current !== null) {
@@ -237,7 +237,7 @@ export function AsciiTypewriter({
     []
   );
 
-  // In-view observer for keyboard shortcut
+  
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;

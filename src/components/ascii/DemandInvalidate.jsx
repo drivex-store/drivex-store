@@ -2,7 +2,6 @@
 import { useEffect, useRef } from "react";
 import { useThree } from "@react-three/fiber";
 
-// fE + fA
 function selectInvalidate(state) {
   return state.invalidate;
 }

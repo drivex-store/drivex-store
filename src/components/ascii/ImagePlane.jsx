@@ -1,6 +1,7 @@
+'use client'
 import { useState, useEffect, useRef } from "react";
-import { useThree } from "@react-three/fiber"; // hO
-import { TextureLoader } from "three"; // sG
+import { useThree } from "@react-three/fiber";
+import { TextureLoader } from "three";
 import { proxyImageUrl } from "@/components/ascii/utils/utils";
 
 export function ImagePlane({
@@ -19,17 +20,27 @@ export function ImagePlane({
   const meshRef = useRef(null);
 
   useEffect(() => {
+    let cancelled = false;
+    const url = proxyImageUrl(imageSrc);
+    console.log("[ASCII] texture loading", url);
+
     const loader = new TextureLoader();
     loader.setCrossOrigin("anonymous");
     loader.load(
-      proxyImageUrl(imageSrc),
+      url,
       (tex) => {
+        if (cancelled) return;
+        console.log("[ASCII] 3 texture loaded", tex.image.width, tex.image.height);
         setTexture(tex);
         onLoad?.();
       },
       undefined,
-      (err) => console.error("Failed to load texture:", err)
+      (err) => console.error("[ASCII] 3 Failed to load texture:", url, err)
     );
+
+    return () => {
+      cancelled = true;
+    };
   }, [imageSrc, onLoad]);
 
   if (!texture) return null;

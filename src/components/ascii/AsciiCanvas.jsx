@@ -1,15 +1,22 @@
 'use client'
 import { useRef, useState, useEffect } from "react";
-import { Canvas } from "@react-three/fiber"; 
-import { cx } from "@/libs/utils/className"; 
-import { useIsTouchDevice } from "@/hooks/useBreakpoint"; 
+import { Canvas } from "@react-three/fiber";
+import { cx } from "@/libs/utils/className";
+import { useIsTouchDevice } from "@/hooks/useBreakpoint";
 import { HoverImage } from "@/components/ascii/HoverImage";
 import { AsciiEffectPass } from "@/components/ascii/AsciiEffectPass";
 import { DemandInvalidate } from "@/components/ascii/DemandInvalidate";
 import { DEFAULT_CHARS } from "@/components/ascii/utils/utils";
 
 function onCreated({ gl }) {
+  // DEBUG: canvas အရွယ်အစား 0 ဖြစ်နေလား စစ်ဖို့
+  console.log(
+    "[ASCII] 4 canvas created",
+    "css:", gl.domElement.clientWidth, "x", gl.domElement.clientHeight,
+    "buffer:", gl.domElement.width, "x", gl.domElement.height
+  );
   gl.domElement.addEventListener("webglcontextlost", (e) => {
+    console.warn("[ASCII] 4 webgl context LOST");
     e.preventDefault();
   });
 }
@@ -66,6 +73,12 @@ export function AsciiCanvas({
   const isTouch = useIsTouchDevice();
   const effectiveFit = isTouch && mobileFit ? mobileFit : fit;
 
+  // DEBUG: progress (contentBounds နဲ့ မြှောက်ပြီးသား) ကို 0.1 အဆင့်စီ log
+  const progressStep = Math.round(progress * 10);
+  useEffect(() => {
+    console.log("[ASCII] 5 canvas progress", progress.toFixed(2));
+  }, [progressStep]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Intersection observer for "always" frameloop visibility
   useEffect(() => {
     if (frameloop !== "always") return;
@@ -101,7 +114,10 @@ export function AsciiCanvas({
     if (!el) return;
     const update = () => {
       const size = Math.max(el.clientWidth, el.clientHeight);
-      if (!Number.isFinite(size) || size <= 0) return;
+      if (!Number.isFinite(size) || size <= 0) {
+        console.warn("[ASCII] 4 container size is 0", el.clientWidth, el.clientHeight);
+        return;
+      }
       const dprFactor =
         Math.max(dpr[0], Math.min(window.devicePixelRatio ?? 1, dpr[1])) / 2;
       const next =
