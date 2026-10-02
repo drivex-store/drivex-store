@@ -1,0 +1,53 @@
+// Reconstructed from SanityButton bundle[cite: 3]
+// module id: 980233
+'use client'
+
+import React from 'react'; // module id: 843476
+
+// TODO: source not present in bundle for the following dependencies
+import { AnimatedButton } from '@/components/AnimatedButton'; // module id: 411602
+import { AnimatedLink } from '@/components/AnimatedLink'; // module id: 553530
+import { SanityLink } from '@/components/sanity/SanityLink'; // module id: 895743
+
+/* 
+ * Renamed identifiers for traceability:
+ * i -> SanityButton (component export)
+ * c -> button (from props destructuring)
+ * d -> className (from props destructuring)
+ * s -> isExternal (from link.type condition)
+ * r.c (module 500932) -> React Compiler useMemoCache array logic (reverted to standard React JSX flow)
+ */
+export function SanityButton({ button, className }) {
+  if (!button?.link?.href) {
+    return null;
+  }
+
+  if (button.variant === "link") {
+    const isExternal = button.link.type === "external";
+    
+    return (
+      <AnimatedLink 
+        asChild 
+        indicator={isExternal} 
+        className={className}
+      >
+        <SanityLink link={button.link}>
+          {button.link.text}
+        </SanityLink>
+      </AnimatedLink>
+    );
+  }
+
+  return (
+    <AnimatedButton 
+      size={button.size} 
+      theme={button.theme} 
+      asChild 
+      className={className}
+    >
+      <SanityLink link={button.link}>
+        {button.link.text}
+      </SanityLink>
+    </AnimatedButton>
+  );
+}
