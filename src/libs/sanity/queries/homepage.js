@@ -88,7 +88,16 @@ export const homepageQuery = groq`*[_type == "page" && _id == $id][0]{
           ...,
           cards[]{
             ...,
-            _type == "mediaCard" => { media{ ..., "image": image${IMAGE} } }
+            _type == "mediaCard" => {
+              media{
+                ...,
+                image{
+                  ...,
+                  "lqip": asset->metadata.lqip,
+                  "dimensions": asset->metadata.dimensions
+                }
+              }
+            }
           }
         }
       },

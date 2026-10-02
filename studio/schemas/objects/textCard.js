@@ -24,7 +24,7 @@ export default defineType({
       name: 'headlineDisplay',
       title: 'Headline Display Size',
       type: 'string',
-      options: { list: ['h1', 'h2', 'h3', 'h4'] },
+      options: { list: ['display', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'] },
     }),
     defineField({ name: 'text', title: 'Text', type: 'text', rows: 2 }),
     defineField({
@@ -35,10 +35,18 @@ export default defineType({
         list: [
           { title: 'Light', value: 'light' },
           { title: 'Dark', value: 'dark' },
+          { title: 'Brand', value: 'brand' },
         ],
         layout: 'radio',
       },
       initialValue: 'light',
+    }),
+    defineField({
+      name: 'plainText',
+      title: 'Plain Text',
+      type: 'boolean',
+      description: 'Show the text as a static paragraph (no scramble / hover effect)',
+      initialValue: false,
     }),
   ],
   preview: {
