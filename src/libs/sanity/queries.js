@@ -1,3 +1,4 @@
+
 const LINK_PROJECTION = `{
   "type": type,
   "href": select(
@@ -12,6 +13,9 @@ const LINK_PROJECTION = `{
 }`
 
 // Menu items: shared by the header and the footer.
+// Singleton site settings (document _id: "site")
+const SPOTS_REMAINING = `*[_type == "site"][0].spotsRemaining`
+
 const NAV_ITEMS_PROJECTION = `{
   _key,
   text,
@@ -38,6 +42,7 @@ const RICH_TEXT_PROJECTION = `{
 
 export const HEADER_QUERY = `
   *[_type == "navigation" && navId.current == "nav"][0]{
+    "spotsRemaining": ${SPOTS_REMAINING},
     "navItems": items[]${NAV_ITEMS_PROJECTION},
     "headerCta": headerCta{
       "text": customText,
@@ -71,6 +76,7 @@ export const HEADER_QUERY = `
 export const FOOTER_QUERY = `
   *[_type == "footer"][0]{
     title,
+    "spotsRemaining": ${SPOTS_REMAINING},
     "navigation": navigation->{
       "items": items[]${NAV_ITEMS_PROJECTION},
       "availability": flyoutAvailability,
