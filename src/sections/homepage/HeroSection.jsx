@@ -3,6 +3,8 @@ import { HeroSectionContent } from '@/sections/contents/HeroSectionContent'
 import { HeroAsciiArt } from '@/sections/shared/HeroAsciiArt'
 import { HeroScrollPush } from '@/sections/shared/HeroScrollPush'
 
+// The reference HTML uses pt-0 pb-0 (no extra padding), so only "none" is mapped.
+// To support more Sanity padding options later, add literal class names here.
 const PADDING_TOP = { none: 'pt-0' }
 const PADDING_BOTTOM = { none: 'pb-0' }
 
@@ -20,6 +22,7 @@ export function HeroSection({ content }) {
     paddingTop,
     paddingBottom,
 
+    // ascii variant (resolved to URLs in homepageQuery)
     asciiImageUrl,
     asciiOriginalImageUrl,
     mobileImageUrl,
@@ -61,23 +64,19 @@ export function HeroSection({ content }) {
           {/* Right column: ASCII / three.js canvas */}
           {showAscii && (
             <div className="lg:grid-span-5 absolute top-[35%] right-0 bottom-0 w-9/10 items-center justify-center overflow-hidden lg:relative lg:inset-auto lg:flex lg:w-auto">
-              <div className="absolute inset-0">
-                <div className="size-full cursor-pointer">
-                  <div className="relative size-full">
-                    <HeroAsciiArt
-                      imageSrc={asciiSrc}
-                      mobileImageSrc={mobileImageUrl ?? undefined}
-                      depthMapSrc={depthMapUrl ?? undefined}
-                      cellSize={asciiCellSize ?? undefined}
-                      color={asciiColor ?? undefined}
-                      colorDark={asciiColorDark ?? undefined}
-                      revealOriginX={asciiRevealOriginX ?? undefined}
-                      revealOriginY={asciiRevealOriginY ?? undefined}
-                      parallaxIntensity={parallaxIntensity ?? undefined}
-                    />
-                  </div>
-                </div>
-              </div>
+              {/* HeroAsciiArt → AsciiTypewriter → AsciiCanvas already render:
+                  absolute inset-0 > size-full cursor-pointer > relative size-full > canvas */}
+              <HeroAsciiArt
+                imageSrc={asciiSrc}
+                mobileImageSrc={mobileImageUrl ?? undefined}
+                depthMapSrc={depthMapUrl ?? undefined}
+                cellSize={asciiCellSize ?? undefined}
+                color={asciiColor ?? undefined}
+                colorDark={asciiColorDark ?? undefined}
+                revealOriginX={asciiRevealOriginX ?? undefined}
+                revealOriginY={asciiRevealOriginY ?? undefined}
+                parallaxIntensity={parallaxIntensity ?? undefined}
+              />
             </div>
           )}
         </div>
