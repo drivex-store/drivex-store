@@ -69,7 +69,8 @@ export function HeroAsciiArt({
     containerRef: containerRef
   });
 
-  const onPageEnter = useCallback((delay) => {
+const onPageEnter = useCallback((delay) => {
+  console.log('ascii enter fired', delay)
     if (reduceMotion) {
       setProgress(1);
       setColorProgress(1);
